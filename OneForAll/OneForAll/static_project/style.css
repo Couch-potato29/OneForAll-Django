@@ -1,0 +1,35 @@
+body{
+    background: #ffe3fe !important;
+}
+
+.nav{
+
+    border-radius: 0px !important;
+    padding: 10px 0px 10px 0px !important;
+    background-color: #440a67 !important;
+}
+
+.mb-7{
+    margin-bottom: 7px !important;
+}
+
+.mt-5{
+    margin-top: 5px !important;
+}
+
+.mt-10{
+    margin-top: 10px !important;
+}
+
+.custommod{
+    height: 100px !important;
+    top: 200px !important;
+}
+
+.bwhite-lg{
+    background-color: transparent !important;
+}
+
+.comment-box{
+    display: none;
+}

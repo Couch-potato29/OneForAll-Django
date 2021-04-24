@@ -1,0 +1,19 @@
+$(document).ready(function(){
+    $('#modal-button').click(function(){
+        $('.ui.modal')
+            .modal('show')
+        ;
+    })
+    $('.ui.dropdown').dropdown()
+});
+/*$(document).ready(function(){
+    $('#profile-modal').click(function(){
+        $('.profile.modal')
+            .modal('show')
+        ;
+    });
+});*/
+$('#comment').click(function(){
+    $('.ui.longer.modal')
+    .modal('show');
+});

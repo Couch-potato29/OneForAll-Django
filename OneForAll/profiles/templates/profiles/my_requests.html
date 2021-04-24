@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    My Requests
+{% endblock title %}
+
+{% block content %}
+    {% if is_empty %}
+        <h2>No Connection Requests Yet</h2>
+    {% endif %}
+        {% for obj in qs %}
+        <div class="ui segment">
+            <div class = "ui grid">
+                <div class="ui three wide column">
+                    <img class="ui small circular image" src="{{obj.profile_pic.url}}">
+                </div>
+                <div class="thirteen wide column">
+                    <a href = ""><h3>{{obj.user}}</h3></a>
+                    <div class="content">
+                        <div class="description">
+                        {{obj.about}}
+                        </div>
+                    </div>
+                    <form action="{% url 'profiles:accept_request' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="profile_pk" value = {{obj.pk}}>
+                        <button type="submit" class="ui positive basic button">
+                            Accept Request
+                        </button>
+                    </form>
+                    <form action="{% url 'profiles:decline_request' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="profile_pk" value = {{obj.pk}}>
+                        <button type="submit" class="ui negative basic button">
+                            Decline Request
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+{% endblock content %}

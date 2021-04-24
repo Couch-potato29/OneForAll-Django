@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Delete Post
+{% endblock title %}
+
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            {% if 'warning' in message.tags %}
+                <div class="ui native message">
+                    <div class="header">
+                        {{message}}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% if not messages %}
+        <div class="ui segment">
+            <h3>Deleting Post....</h3>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <p>Are you Sure you want to delete this post?</p>
+                <button type="submit" class="ui primary button">Yes</button>
+            </form>
+        </div>
+    {% endif %}
+{% endblock content %}

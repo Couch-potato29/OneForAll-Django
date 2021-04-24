@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Profiles
+{% endblock title %}
+
+{% block content %}
+    {% if is_empty %}
+        <h1>No Profiles Found</h1>
+    {% endif %}
+    {% for obj in object_list %}
+        <div class="ui divided massive list">
+            <div class="item">
+            <img class="ui avatar image" src="{{obj.profile_pic.url}}">
+            <div class="content">
+                <h3><a href = "{{obj.get_absolute_url}}" class="header">{{obj.user}} - ({{obj.category}})</a></h3>
+                <div class="description"><h5>{{obj.about}}</h5></div>
+                <!-- <form action="" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name='profile_pk' value = {{obj.pk}}>
+
+                </form> -->
+
+                {% if obj.user not in rel_receiver and obj.user not in rel_sender %}
+                <form action="{% url 'profiles:send_request' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name='profile_pk' value = {{obj.pk}}>
+                        <button type="submit" class = 'ui animated fade violet mini button'>
+                            <div class="visible content">Add Connection</div>
+                                <div class="hidden content">
+                                    <i class="user plus icon"></i>
+                                </div>
+                        </button>
+                </form>
+                {% endif %}
+
+                {% if obj.user in rel_receiver and request.user not in obj.followers.all %}
+                    <button type="submit" class = 'ui disabled grey mini button'>
+                        Request Sent
+                    </button>
+                {% endif %}
+
+
+                {% if request.user in obj.followers.all %}
+                <form action="{% url 'profiles:remove_connection' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name='profile_pk' value = {{obj.pk}}>
+                        <button type="submit" class = 'ui animated fade red mini button'>
+                            <div class="visible content">Remove Connection</div>
+                                <div class="hidden content">
+                                    <i class="user times icon"></i>
+                                </div>
+                        </button>
+                </form>
+                {% endif %}
+
+            </div>
+            </div>
+        </div>
+    {% endfor %}
+    <!--<ul>
+        {% for item in qs %}
+            <li>{{item}}</li>
+        {% endfor %}
+    </ul>-->
+{% endblock content %}
